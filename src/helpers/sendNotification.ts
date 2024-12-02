@@ -29,7 +29,8 @@ export async function sendNotification(sender: string, title: string, body: stri
 
     try {
         await unSubscribe(sender, channel);
-        await admin.messaging().send(payload)
+        const msg = await admin.messaging().send(payload)
+        console.log(`that is the msg ${msg}`)
         await subscribe(sender, channel);
     } catch (error) {
         console.log(error)
