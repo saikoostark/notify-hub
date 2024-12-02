@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 
 import { firestoreDB, realtimeDB } from "@/firebase";
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
@@ -90,3 +91,5 @@ export default function Topics() {
         </div>
     )
 }
+
+export const dynamic = "force-dynamic";
