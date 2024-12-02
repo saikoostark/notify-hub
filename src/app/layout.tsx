@@ -25,10 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+
+        <div className="container flex flex-col h-[100vh]">
+          {/* <Header /> */}
+          <main className="grow w-[100vw]">{children}</main>
+        </div>
+
+        {/* <FcmChecker /> */}
       </body>
     </html>
   );

@@ -19,3 +19,31 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+/* Target Webkit-based browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Narrower width */
+  height: 8px; /* For horizontal scrollbar */
+}
+
+/* Scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light background */
+}
+
+/* Scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Deeper/darker color */
+  border-radius: 4px; /* Smooth edges */
+}
+
+/* Scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker shade on hover */
+}
+
+/* For smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
