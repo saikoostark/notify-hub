@@ -26,8 +26,6 @@ export default function Chat({ params }: { params: Promise<{ channel_id: string 
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
 
-
-
     useEffect(() => {
         if (messages && !messagesLoading) {
             const new_list = messages.map(element => {
@@ -92,9 +90,8 @@ export default function Chat({ params }: { params: Promise<{ channel_id: string 
         border: '1px solid rgba(255, 255, 255, 0.3)', // Subtle border
         backdropFilter: 'blur(2px)', // Frosted glass effect
         WebkitBackdropFilter: 'blur(2px)', // Safari support
-        borderRadius: '10px', // Rounded corners
+        // borderRadius: '10px', // Rounded corners
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for depth
-        padding: '4px', // Inner padding
         color: '#fff', // Text color for contrast
     };
 
@@ -104,14 +101,15 @@ export default function Chat({ params }: { params: Promise<{ channel_id: string 
             <ChannelsSidebar />
 
             <button
+                style={glassEffectStyle}
                 onClick={() => router.push('/')}
                 className="rounded-full absolute top-2 right-3 bg-white	z-10"
             >
                 <Image
                     src='/back.png'
                     alt="back.png"
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     title='back to home'
                 />
             </button>
@@ -132,9 +130,9 @@ export default function Chat({ params }: { params: Promise<{ channel_id: string 
                     <div ref={messagesEndRef} />
                 </div>}
 
-                <div className="sender h-[6vh] flex bg-transparent border items-center rounded-lg">
+                <div style={glassEffectStyle} className="sender h-[6vh] flex border items-center rounded-lg">
                     <input type="text"
-                        className=" h-[100%] w-[95%] bg-transparent outline-none  px-5 text-lg "
+                        className=" h-[100%] w-[95%] bg-transparent outline-none  px-5 text-lg text-white"
                         onChange={e => setMessage(e.target.value)}
                         onKeyDown={handleKeyDown}
                         value={message}
@@ -142,13 +140,13 @@ export default function Chat({ params }: { params: Promise<{ channel_id: string 
                     <button
                         style={glassEffectStyle}
                         onClick={send_message}
-                    // className="rounded-full"
+                        className="rounded-full p-1"
                     >
                         <Image
                             src='/message.png'
                             alt="message.png"
-                            width={40}
-                            height={40}
+                            width={30}
+                            height={30}
                         />
                     </button>
                 </div>
