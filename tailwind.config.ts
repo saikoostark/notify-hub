@@ -15,6 +15,25 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      animation: {
+        'popup-fade': 'popupFade 5s forwards', // Adds the custom animation
+      },
+      keyframes: {
+        popupFade: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(20px)',
+          },
+          '50%': {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+          '100%': {
+            opacity: '0',
+            transform: 'translateY(20px)',
+          },
+        },
+      },
     },
   },
   plugins: [],

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getMessaging, onMessage } from 'firebase/messaging';
 import { firebaseApp, firestoreDB } from '@/firebase';
 import useFcmToken from '@/hooks/useFcmToken';
@@ -9,16 +9,33 @@ import { collection } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Image from 'next/image'
 import { usePathname } from 'next/navigation';
+import Notification from "@/components/notification";
+
+type NotificationType = {
+    active: boolean;
+    title: string;
+    body: string;
+}
 
 export default function ChannelsSidebar() {
     const path = usePathname()
     const { fcmToken } = useFcmToken();
+    const [notificationContent, setNotificationContent] = useState<NotificationType>({
+        active: false,
+        title: '',
+        body: ''
+    });
 
     useEffect(() => {
         if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
             const messaging = getMessaging(firebaseApp);
             const unsubscribe = onMessage(messaging, (payload) => {
                 console.log('Foreground push notification received:', payload);
+                setNotificationContent({ active: true, title: payload.notification?.title ?? '', body: payload.notification?.body ?? '' });
+
+                setTimeout(() => {
+                    setNotificationContent({ active: false, title: '', body: '' });
+                }, 10000);
             });
             return () => {
                 unsubscribe(); // Unsubscribe from the onMessage event
@@ -28,23 +45,6 @@ export default function ChannelsSidebar() {
 
     const [channelsValue, channelsLoading] = useCollection(collection(firestoreDB, 'channels'));
 
-    // useEffect(() => {
-    //     if (fcmToken) {
-    //         const unSub = onSnapshot(doc(firestoreDB, 'users', fcmToken), (docRes) => {
-    //             if (docRes.exists())
-    //                 setUserDoc(docRes);
-    //         });
-
-    //         return () => {
-    //             unSub();
-    //         }
-    //     }
-    // }, [fcmToken])
-
-    // useEffect(() => {
-    //     channelsValue?.docs.map(d => console.log(d.data()))
-
-    // }, [channelsValue])
 
 
 
@@ -74,6 +74,9 @@ export default function ChannelsSidebar() {
 
     return (
         <div className={`channels ${path === '/' ? 'flex md:w-[30vw] md:border-r-[1px] w-[100vw]' : 'hidden'} md:flex max-h-[100vh]  flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 md:w-[30vw]`} >
+
+            {notificationContent.active && <Notification title={notificationContent.title} body={notificationContent.body} />}
+
             {
                 !channelsLoading && channelsValue?.docs?.map(my_doc => {
                     const is_i_exist = my_doc?.data().users?.includes(fcmToken) ?? 0;
