@@ -39,7 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 add those
 
-# Core Firebase Config
+## Core Firebase Config
 
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key_here # Firebase API Key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com # Firebase Auth Domain
@@ -50,7 +50,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id_here # Firebase App ID
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-your_measurement_id_here # Firebase Measurement ID
 NEXT_PUBLIC_FIREBASE_DATABASE_URL=https://your_project_id.firebaseio.com # Firebase Realtime Database URL
 
-# Admin SDK Service Account Keys (Optional - Used for Server-Side Operations)
+## Admin SDK Service Account Keys (Optional - Used for Server-Side Operations)
 
 FIREBASE_SERVICE_ACCOUNT_TYPE=service_account # Type of service account
 FIREBASE_SERVICE_ACCOUNT_PROJECT_ID=your_project_id_here # Project ID
@@ -63,12 +63,12 @@ FIREBASE_SERVICE_ACCOUNT_TOKEN_URI=https://oauth2.googleapis.com/token # Token U
 FIREBASE_SERVICE_ACCOUNT_AUTH_PROVIDER_X509_CERT_URL=https://www.googleapis.com/oauth2/v1/certs # Provider Cert URL
 FIREBASE_SERVICE_ACCOUNT_CLIENT_X509_CERT_URL=https://www.googleapis.com/robot/v1/metadata/x509/your_project_email_here # Client Cert URL
 
-# Firebase VAPID Keys (For Web Push Notifications)
+## Firebase VAPID Keys (For Web Push Notifications)
 
 NEXT_PUBLIC_FIREBASE_VAPID_KEY=your_public_vapid_key_here # Public VAPID Key
 FIREBASE_VAPID_PRIVATE_KEY=your_private_vapid_key_here # Private VAPID Key
 
-# Optional Configurations
+## Optional Configurations
 
 NEXT_PUBLIC_FIREBASE_DEBUG_MODE=true # Enable Firebase Debug Mode (if applicable)
 NEXT_PUBLIC_FIREBASE_REGION=your_default_region_here # Set Firebase Region
