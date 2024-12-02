@@ -2,14 +2,14 @@ importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js
 importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js');
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL
+  apiKey: "AIzaSyC2hJHMQO2V1Ph1yWf7zhasYz0oPfGgbro",
+  authDomain: "notify-hub-pro.firebaseapp.com",
+  databaseURL: "https://notify-hub-pro-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "notify-hub-pro",
+  storageBucket: "notify-hub-pro.firebasestorage.app",
+  messagingSenderId: "369865112650",
+  appId: "1:369865112650:web:bce4a2a2225c5f92e27ab3",
+  measurementId: "G-319E9W8FMC"
 };
 
 firebase.initializeApp(firebaseConfig);
