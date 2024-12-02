@@ -38,23 +38,37 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## Adding env variables
 
 add those
-NEXT_PUBLIC_FIREBASE_API_KEY=
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-NEXT_PUBLIC_FIREBASE_APP_ID=
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
-NEXT_PUBLIC_FIREBASE_DATABASE_URL=
-NEXT_PUBLIC_FIREBASE_VAPID_KEY=
-FIREBASE_TYPE=
-FIREBASE_PROJECT_ID=
-FIREBASE_PRIVATE_KEY_ID=
-FIREBASE_PRIVATE_KEY=
-FIREBASE_CLIENT_EMAIL=
-FIREBASE_CLIENT_ID=
-FIREBASE_AUTH_URI=
-FIREBASE_TOKEN_URI=
-FIREBASE_AUTH_PROVIDER_CERT_URL=
-FIREBASE_CLIENT_CERT_URL=
-FIREBASE_UNIVERSE_DOMAIN=
+
+# Core Firebase Config
+
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key_here # Firebase API Key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com # Firebase Auth Domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id_here # Firebase Project ID
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com # Firebase Storage Bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id_here # Firebase Messaging Sender ID
+NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id_here # Firebase App ID
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-your_measurement_id_here # Firebase Measurement ID
+NEXT_PUBLIC_FIREBASE_DATABASE_URL=https://your_project_id.firebaseio.com # Firebase Realtime Database URL
+
+# Admin SDK Service Account Keys (Optional - Used for Server-Side Operations)
+
+FIREBASE_SERVICE_ACCOUNT_TYPE=service_account # Type of service account
+FIREBASE_SERVICE_ACCOUNT_PROJECT_ID=your_project_id_here # Project ID
+FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY_ID=your_private_key_id_here # Private Key ID
+FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY=your_private_key_here # Private Key (Keep secure, wrap it in quotes)
+FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL=your_service_account_email_here # Service Account Email
+FIREBASE_SERVICE_ACCOUNT_CLIENT_ID=your_client_id_here # Client ID
+FIREBASE_SERVICE_ACCOUNT_AUTH_URI=https://accounts.google.com/o/oauth2/auth # Auth URI
+FIREBASE_SERVICE_ACCOUNT_TOKEN_URI=https://oauth2.googleapis.com/token # Token URI
+FIREBASE_SERVICE_ACCOUNT_AUTH_PROVIDER_X509_CERT_URL=https://www.googleapis.com/oauth2/v1/certs # Provider Cert URL
+FIREBASE_SERVICE_ACCOUNT_CLIENT_X509_CERT_URL=https://www.googleapis.com/robot/v1/metadata/x509/your_project_email_here # Client Cert URL
+
+# Firebase VAPID Keys (For Web Push Notifications)
+
+NEXT_PUBLIC_FIREBASE_VAPID_KEY=your_public_vapid_key_here # Public VAPID Key
+FIREBASE_VAPID_PRIVATE_KEY=your_private_vapid_key_here # Private VAPID Key
+
+# Optional Configurations
+
+NEXT_PUBLIC_FIREBASE_DEBUG_MODE=true # Enable Firebase Debug Mode (if applicable)
+NEXT_PUBLIC_FIREBASE_REGION=your_default_region_here # Set Firebase Region
