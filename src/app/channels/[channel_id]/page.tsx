@@ -94,7 +94,7 @@ export default function Chat({ params }: { params: Promise<{ channel_id: string 
         WebkitBackdropFilter: 'blur(2px)', // Safari support
         borderRadius: '10px', // Rounded corners
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for depth
-        padding: '8px', // Inner padding
+        padding: '4px', // Inner padding
         color: '#fff', // Text color for contrast
     };
 
@@ -139,13 +139,16 @@ export default function Chat({ params }: { params: Promise<{ channel_id: string 
                         onKeyDown={handleKeyDown}
                         value={message}
                     />
-                    <button style={glassEffectStyle} onClick={send_message}>
+                    <button
+                        style={glassEffectStyle}
+                        onClick={send_message}
+                    // className="rounded-full"
+                    >
                         <Image
                             src='/message.png'
                             alt="message.png"
                             width={40}
                             height={40}
-                            className="rounded-lg  p-1 "
                         />
                     </button>
                 </div>

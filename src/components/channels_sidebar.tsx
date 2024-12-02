@@ -72,7 +72,7 @@ export default function ChannelsSidebar() {
     };
 
     return (
-        <div className="channels max-h-[100vh] flex flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 w-[30vw] border-r-2" >
+        <div className="channels max-h-[100vh] flex flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 w-[30vw] border-r-[1px]" >
             {
                 !channelsLoading && channelsValue?.docs?.map(my_doc => {
                     const is_i_exist = my_doc?.data().users?.includes(fcmToken) ?? 0;
