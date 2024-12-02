@@ -49,7 +49,7 @@ export default function ChannelsSidebar() {
 
 
     async function toggleSubscribtion(channel: string) {
-        await fetch('/api/channels', {
+        await fetch('/api/subscribe', {
             method: 'POST',
             body: JSON.stringify({
                 token: fcmToken,
