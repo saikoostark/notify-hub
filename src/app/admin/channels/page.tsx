@@ -3,7 +3,7 @@
 
 import { firestoreDB, realtimeDB } from "@/firebase";
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Image from 'next/image'
 import { ref, remove } from "firebase/database";
@@ -17,6 +17,16 @@ export default function Topics() {
 
 
     const [value, loading] = useCollection(collection(firestoreDB, 'channels'));
+
+
+    useEffect(() => {
+
+        if(!loading && value){
+            console.log(value);
+        }
+
+    }, [value, loading])
+
 
     async function submit_form() {
         const name = channelName;
