@@ -24,8 +24,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+-   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
@@ -34,3 +34,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Adding env variables
+
+add those
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+NEXT_PUBLIC_FIREBASE_DATABASE_URL=
+NEXT_PUBLIC_FIREBASE_VAPID_KEY=
+FIREBASE_TYPE=
+FIREBASE_PROJECT_ID=
+FIREBASE_PRIVATE_KEY_ID=
+FIREBASE_PRIVATE_KEY=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_CLIENT_ID=
+FIREBASE_AUTH_URI=
+FIREBASE_TOKEN_URI=
+FIREBASE_AUTH_PROVIDER_CERT_URL=
+FIREBASE_CLIENT_CERT_URL=
+FIREBASE_UNIVERSE_DOMAIN=
