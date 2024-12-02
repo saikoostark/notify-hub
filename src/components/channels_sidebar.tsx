@@ -73,7 +73,7 @@ export default function ChannelsSidebar() {
     };
 
     return (
-        <div className={`channels ${path === '/' ? 'flex md:w-[30vw] md:border-r-[1px] w-[100vw]' : 'hidden'} md:flex max-h-[100vh]  flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 `} >
+        <div className={`channels ${path === '/' ? 'flex md:w-[30vw] md:border-r-[1px] w-[100vw]' : 'hidden'} md:flex max-h-[100vh]  flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 md:w-[30vw]`} >
             {
                 !channelsLoading && channelsValue?.docs?.map(my_doc => {
                     const is_i_exist = my_doc?.data().users?.includes(fcmToken) ?? 0;
