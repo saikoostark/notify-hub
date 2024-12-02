@@ -4,7 +4,7 @@ import './notification.css'
 export default function Notification({ title, body }: { title: string, body: string }) {
 
 
-    console.log('i am notification');
+    console.log('i am notification testing only');
 
 
 
