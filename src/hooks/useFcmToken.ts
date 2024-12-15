@@ -23,7 +23,6 @@ const useFcmToken = () => {
                                 process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
                         });
                         if (currentToken) {
-                            console.log(currentToken);
                             setToken(currentToken);
                         } else {
                             console.log(

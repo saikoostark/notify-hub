@@ -4,12 +4,9 @@ import './notification.css'
 export default function Notification({ title, body }: { title: string, body: string }) {
 
 
-    console.log('i am notification testing only');
-
-
 
     const popupFadeStyle = {
-        animation: 'popupFade 10s forwards',
+        animation: 'popupFade 15s forwards',
     };
 
     const keyframes = {
@@ -18,11 +15,11 @@ export default function Notification({ title, body }: { title: string, body: str
                 opacity: 0,
                 transform: 'translateY(20px)',
             },
-            '5%': {
+            '3%': {
                 opacity: 1,
                 transform: 'translateY(0)',
             },
-            '95%': {
+            '98%': {
                 opacity: 1,
                 transform: 'translateY(0)',
             },

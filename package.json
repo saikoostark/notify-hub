@@ -12,9 +12,11 @@
     "firebase": "^11.0.2",
     "firebase-admin": "^13.0.1",
     "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
-    "react-firebase-hooks": "^5.1.1"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-otp-input": "^3.1.1",
+    "react-phone-number-input": "^3.4.10"
   },
   "devDependencies": {
     "@types/node": "^20",

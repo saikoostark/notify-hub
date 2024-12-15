@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getAnalytics } from 'firebase/analytics';
 
 
 const firebaseConfig = {
@@ -21,3 +22,6 @@ export const firebaseApp = initializeApp(firebaseConfig);
 export const realtimeDB = getDatabase(firebaseApp);
 export const firestoreDB = getFirestore(firebaseApp)
 export const auth = getAuth(firebaseApp)
+export const analytics = typeof window !== "undefined" ? getAnalytics(firebaseApp) : null;
+
+auth.useDeviceLanguage();

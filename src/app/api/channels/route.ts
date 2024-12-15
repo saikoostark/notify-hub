@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
     try {
         const { channel } = await req.json();
         await admin.firestore().collection("channels").doc(channel).set({ users: [] }, { merge: true });
+        await admin.firestore().collection("channels_notifications").doc(channel).set({ users: [] }, { merge: true });
         return NextResponse.json({ message: 'Data received successfully' });
     } catch (error) {
         return NextResponse.json({ error }, { status: 400 });
@@ -22,6 +23,7 @@ export async function DELETE(req: NextRequest) {
         const { channel } = await req.json();
 
         await admin.firestore().collection("channels").doc(channel).delete();
+        await admin.firestore().collection("channels_notifications").doc(channel).delete();
         await admin.database().ref(`channels/${channel}`).remove();
 
         return NextResponse.json({ message: 'Data received successfully' });

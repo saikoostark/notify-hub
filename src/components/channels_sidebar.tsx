@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { getMessaging, onMessage } from 'firebase/messaging';
-import { firebaseApp, firestoreDB } from '@/firebase';
+import { analytics, auth, firebaseApp, firestoreDB } from '@/firebase';
 import useFcmToken from '@/hooks/useFcmToken';
 import Link from 'next/link';
 import { collection } from 'firebase/firestore';
@@ -10,6 +10,8 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import Image from 'next/image'
 import { usePathname } from 'next/navigation';
 import Notification from "@/components/notification";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { logEvent } from 'firebase/analytics';
 
 type NotificationType = {
     active: boolean;
@@ -19,7 +21,7 @@ type NotificationType = {
 
 export default function ChannelsSidebar() {
     const path = usePathname()
-    const { fcmToken } = useFcmToken();
+    const [user, loading, error] = useAuthState(auth);
     const [notificationContent, setNotificationContent] = useState<NotificationType>({
         active: false,
         title: '',
@@ -27,18 +29,22 @@ export default function ChannelsSidebar() {
     });
 
     useEffect(() => {
+        let timeout: NodeJS.Timeout | null = null;
+
         if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
             const messaging = getMessaging(firebaseApp);
             const unsubscribe = onMessage(messaging, (payload) => {
                 console.log('Foreground push notification received:', payload);
                 setNotificationContent({ active: true, title: payload.notification?.title ?? '', body: payload.notification?.body ?? '' });
 
-                setTimeout(() => {
+                timeout = setTimeout(() => {
                     setNotificationContent({ active: false, title: '', body: '' });
-                }, 10000);
+                }, 15000);
             });
             return () => {
-                unsubscribe(); // Unsubscribe from the onMessage event
+                unsubscribe();
+                if (timeout)
+                    clearTimeout(timeout);
             };
         }
     }, []);
@@ -46,18 +52,26 @@ export default function ChannelsSidebar() {
     const [channelsValue, channelsLoading] = useCollection(collection(firestoreDB, 'channels'));
 
 
-
-
-
     async function toggleSubscribtion(channel: string) {
-        await fetch('/api/subscribe', {
+        if (!user)
+            return;
+        const subscribtion = channelsValue?.docs.find(a => a.id == channel)?.data().users.includes(user.uid) ? false : true;
+        const jwt_token = await user.getIdToken();
+        const response = await fetch('/api/subscribe', {
             method: 'POST',
             body: JSON.stringify({
-                token: fcmToken,
-                channel: channel,
-                subscribtion: channelsValue?.docs.find(a => a.id == channel)?.data().users.includes(fcmToken) ? false : true
+                token: jwt_token,
+                channel,
+                subscribtion
             })
-        })
+        });
+
+        if (response.ok && analytics != null) {
+            logEvent(analytics, 'channel_subscription', {
+                channel,
+                action: subscribtion ? 'subscribe' : 'unsubscribe'
+            });
+        }
     }
 
 
@@ -73,16 +87,17 @@ export default function ChannelsSidebar() {
     };
 
     return (
-        <div className={`channels ${path === '/' ? 'flex md:w-[30vw] md:border-r-[1px] w-[100vw]' : 'hidden'} md:flex max-h-[100vh]  flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 md:w-[30vw]`} >
+        // <div className={`channels ${path === '/' ? 'flex md:w-[30vw] md:border-r-[1px] w-[100vw]' : 'hidden'} md:flex max-h-[100vh]  flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 md:w-[30vw]`} >
+        <div className={`channels ${path === '/channels' ? 'flex md:w-[30vw] md:border-r-[1px] w-[100vw]' : 'hidden'} md:flex max-h-[100vh]  flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 md:w-[30vw] bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 md:border-gray-200 shadow-2xl`} >
 
             {notificationContent.active && <Notification title={notificationContent.title} body={notificationContent.body} />}
 
             {
                 !channelsLoading && channelsValue?.docs?.map(my_doc => {
-                    const is_i_exist = my_doc?.data().users?.includes(fcmToken) ?? 0;
+                    const is_i_exist = my_doc?.data().users?.includes(user?.uid) ?? 0;
                     return (
                         <div key={my_doc.id} className=' rounded-lg flex p-2' style={glassEffectStyle}>
-                            <Link href={is_i_exist ? `/channels/${my_doc.id}` : '/'} className="flex w-[80%] items-center gap-x-3">
+                            <Link href={is_i_exist ? `/channels/${my_doc.id}` : '/channels'} className="flex w-[80%] items-center gap-x-3">
                                 <Image src="/people.png"
                                     width={45}
                                     height={45}

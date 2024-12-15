@@ -1,7 +1,7 @@
 import admin from "firebase-admin";
 import { Message } from "firebase-admin/messaging";
 import initializeFirebaseAdmin from "@/helpers/adminHelper";
-import { subscribe, unSubscribe } from "./notificationSubscribtion";
+// import { subscribe, unSubscribe } from "./notificationSubscribtion";
 
 
 
@@ -28,9 +28,9 @@ export async function sendNotification(sender: string, title: string, body: stri
         }
 
     try {
-        await unSubscribe(sender, channel);
+        // await unSubscribe(sender, channel);
         await admin.messaging().send(payload)
-        await subscribe(sender, channel);
+        // await subscribe(sender, channel);
     } catch (error) {
         console.log(error)
     }
