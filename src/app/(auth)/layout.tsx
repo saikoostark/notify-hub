@@ -1,6 +1,7 @@
 'use client';
 
 import { analytics, auth } from "@/firebase";
+import useFcmToken from "@/hooks/useFcmToken";
 import { logEvent } from "firebase/analytics";
 import { useRouter } from 'next/navigation'
 import { useEffect } from "react";
@@ -13,14 +14,30 @@ export default function AuthLayout({
 }>) {
     const router = useRouter();
     const [user, loading] = useAuthState(auth);
+    const { fcmToken, notificationPermissionStatus } = useFcmToken();
 
     useEffect(() => {
 
         if (user) {
-            console.log(user.metadata.lastSignInTime, user.metadata.creationTime, user.metadata.lastSignInTime === user.metadata.creationTime)
+            // console.log(user.metadata.lastSignInTime, user.metadata.creationTime, user.metadata.lastSignInTime === user.metadata.creationTime)
             if (analytics && user.metadata.lastSignInTime === user.metadata.creationTime) {
                 logEvent(analytics, 'first_time_login');
-                console.log('i am logging here to first signin');
+
+                async function loginNotification() {
+                    if (notificationPermissionStatus !== 'granted')
+                        return;
+                    const jwt_token = await user!.getIdToken();
+                    await fetch('/api/notifications/', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            fcmToken: fcmToken,
+                            token: jwt_token
+                        }),
+                    });
+
+                };
+
+                loginNotification();
             }
             router.push('/channels');
         }

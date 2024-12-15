@@ -6,7 +6,7 @@ export default function Notification({ title, body }: { title: string, body: str
 
 
     const popupFadeStyle = {
-        animation: 'popupFade 15s forwards',
+        animation: 'popupFade 10s forwards',
     };
 
     const keyframes = {
@@ -24,7 +24,7 @@ export default function Notification({ title, body }: { title: string, body: str
                 transform: 'translateY(0)',
             },
             '100%': {
-                opacity: 0,
+                // opacity: 0,
                 transform: 'translateY(20px)',
             },
         },
@@ -35,8 +35,8 @@ export default function Notification({ title, body }: { title: string, body: str
     return (
         <div
             style={{ ...popupFadeStyle, ...keyframes }}
-            className="popup absolute bg-white rounded-lg p-2 text-black flex flex-col
-        left-1/2 -translate-x-1/2 top-10 -translate-y-1/2 items-center
+            className="absolute bg-white rounded-lg p-2 text-black flex flex-col
+        left-1/2 -translate-x-1/2 top-10 -translate-y-1/2 items-center z-50 w-fit
         ">
             <h1>{title}</h1>
             <h2>{body}</h2>

@@ -1,55 +1,26 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { getMessaging, onMessage } from 'firebase/messaging';
-import { analytics, auth, firebaseApp, firestoreDB } from '@/firebase';
+import { analytics, auth, firestoreDB } from '@/firebase';
 // import useFcmToken from '@/hooks/useFcmToken';
 import Link from 'next/link';
 import { collection } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Image from 'next/image'
 import { usePathname } from 'next/navigation';
-import Notification from "@/components/notification";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { logEvent } from 'firebase/analytics';
+import useFcmToken from '@/hooks/useFcmToken';
 
-type NotificationType = {
-    active: boolean;
-    title: string;
-    body: string;
-}
 
 export default function ChannelsSidebar() {
     const path = usePathname()
     const [user, ,] = useAuthState(auth);
-    const [notificationContent, setNotificationContent] = useState<NotificationType>({
-        active: false,
-        title: '',
-        body: ''
-    });
-
-    useEffect(() => {
-        let timeout: NodeJS.Timeout | null = null;
-
-        if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-            const messaging = getMessaging(firebaseApp);
-            const unsubscribe = onMessage(messaging, (payload) => {
-                console.log('Foreground push notification received:', payload);
-                setNotificationContent({ active: true, title: payload.notification?.title ?? '', body: payload.notification?.body ?? '' });
-
-                timeout = setTimeout(() => {
-                    setNotificationContent({ active: false, title: '', body: '' });
-                }, 15000);
-            });
-            return () => {
-                unsubscribe();
-                if (timeout)
-                    clearTimeout(timeout);
-            };
-        }
-    }, []);
-
     const [channelsValue, channelsLoading] = useCollection(collection(firestoreDB, 'channels'));
+    const { fcmToken } = useFcmToken()
+
+
+
+
 
 
     async function toggleSubscribtion(channel: string) {
@@ -62,7 +33,8 @@ export default function ChannelsSidebar() {
             body: JSON.stringify({
                 token: jwt_token,
                 channel,
-                subscribtion
+                subscribtion,
+                fcmToken
             })
         });
 
@@ -89,8 +61,6 @@ export default function ChannelsSidebar() {
     return (
         // <div className={`channels ${path === '/' ? 'flex md:w-[30vw] md:border-r-[1px] w-[100vw]' : 'hidden'} md:flex max-h-[100vh]  flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 md:w-[30vw]`} >
         <div className={`channels ${path === '/channels' ? 'flex md:w-[30vw] md:border-r-[1px] w-[100vw]' : 'hidden'} md:flex max-h-[100vh]  flex-col  bg-transparent gap-y-5 py-5 overflow-y-auto px-5 md:w-[30vw] bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 md:border-gray-200 shadow-2xl`} >
-
-            {notificationContent.active && <Notification title={notificationContent.title} body={notificationContent.body} />}
 
             {
                 !channelsLoading && channelsValue?.docs?.map(my_doc => {

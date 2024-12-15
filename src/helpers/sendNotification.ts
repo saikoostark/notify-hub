@@ -5,17 +5,24 @@ import initializeFirebaseAdmin from "@/helpers/adminHelper";
 
 
 
-export async function sendNotification(sender: string, title: string, body: string, channel: string, link?: string) {
+export async function sendNotification(sender: string, title: string, body: string, channel?: string, link?: string) {
     initializeFirebaseAdmin()
 
-
-    let payload: Message = {
+    // console.log('new notification ', title, body, sender);
+    let payload: Message | null = {
         notification: {
             title,
-            body,
+            body
         },
-        topic: channel
+        token: sender
     };
+
+    if (channel) {
+        payload = {
+            ...payload,
+            topic: channel
+        }
+    }
 
     if (link)
         payload = {
