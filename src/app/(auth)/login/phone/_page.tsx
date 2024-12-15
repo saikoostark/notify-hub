@@ -2,11 +2,9 @@
 
 import EmailLogin from '@/components/auth/email_login';
 import Google from '@/components/auth/google';
-import Phone from '@/components/auth/phone';
 import { auth } from '@/firebase';
 import { ConfirmationResult, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
@@ -19,7 +17,7 @@ export default function PhoneLogin() {
     const codeDivRef = useRef<HTMLDivElement>(null);
     const [signInWithEmailAndPassword, , , error] = useSignInWithEmailAndPassword(auth);
     const [errorMsg, setErrorMsg] = useState(false);
-    const [userConfirmation, setUserConfirmation] = useState<ConfirmationResult | null>(null);
+    const [, setUserConfirmation] = useState<ConfirmationResult | null>(null);
     const [isDisabled, setIsDisabled] = useState(false);
 
     function showOTP() {

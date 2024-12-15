@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getMessaging, onMessage } from 'firebase/messaging';
 import { analytics, auth, firebaseApp, firestoreDB } from '@/firebase';
-import useFcmToken from '@/hooks/useFcmToken';
+// import useFcmToken from '@/hooks/useFcmToken';
 import Link from 'next/link';
 import { collection } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -21,7 +21,7 @@ type NotificationType = {
 
 export default function ChannelsSidebar() {
     const path = usePathname()
-    const [user, loading, error] = useAuthState(auth);
+    const [user, ,] = useAuthState(auth);
     const [notificationContent, setNotificationContent] = useState<NotificationType>({
         active: false,
         title: '',

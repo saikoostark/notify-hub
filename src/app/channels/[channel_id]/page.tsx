@@ -5,7 +5,7 @@ import { realtimeDB } from '@/firebase';
 import Image from "next/image";
 import ChannelsSidebar from '@/components/channels_sidebar';
 import { useRouter } from 'next/navigation';
-import { use, useEffect, useRef, useState } from 'react';
+import { use, useEffect, useRef } from 'react';
 import { DataSnapshot, ref } from 'firebase/database';
 import useFcmToken from '@/hooks/useFcmToken';
 import Head from 'next/head';
@@ -20,8 +20,8 @@ type UserMessage = {
 export default function Chat({ params }: { params: Promise<{ channel_id: string }> }) {
     const channelId = use(params).channel_id
     const [messages, messagesLoading] = useList(ref(realtimeDB, `channels/${channelId}`));
-    const [msgs, setMsgs] = useState<UserMessage[]>([])
-    const { fcmToken, notificationPermissionStatus } = useFcmToken();
+    // const [msgs, setMsgs] = useState<UserMessage[]>([])
+    const { fcmToken } = useFcmToken();
     const router = useRouter();
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const msgInputRef = useRef<HTMLInputElement>(null);

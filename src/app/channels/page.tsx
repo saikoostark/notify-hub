@@ -1,7 +1,6 @@
 'use client';
 
 import ChannelsSidebar from '@/components/channels_sidebar';
-import useFcmToken from '@/hooks/useFcmToken';
 import Head from 'next/head';
 
 
