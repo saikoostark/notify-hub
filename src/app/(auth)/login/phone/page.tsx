@@ -6,7 +6,7 @@ import { auth } from '@/firebase';
 import { ConfirmationResult, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import Github from '@/components/auth/github';
 
 export default function PhoneLogin() {
 
@@ -15,9 +15,9 @@ export default function PhoneLogin() {
     const sendOTPButtonRef = useRef<HTMLButtonElement>(null);
     const verifyCodeButtonRef = useRef<HTMLButtonElement>(null);
     const codeDivRef = useRef<HTMLDivElement>(null);
-    const [signInWithEmailAndPassword, , , error] = useSignInWithEmailAndPassword(auth);
+    const [errorMsgContent, setErrorMsgContent] = useState('');
     const [errorMsg, setErrorMsg] = useState(false);
-    const [, setUserConfirmation] = useState<ConfirmationResult | null>(null);
+    const [userConfirmation, setUserConfirmation] = useState<ConfirmationResult | null>(null);
     const [isDisabled, setIsDisabled] = useState(false);
 
     function showOTP() {
@@ -43,6 +43,7 @@ export default function PhoneLogin() {
                     showOTP();
                 }
             } catch (error) {
+                // setErrorMsgContent((error as Error).message);
                 console.log(error);
             }
         }
@@ -59,9 +60,9 @@ export default function PhoneLogin() {
         verifyCodeButtonRef.current.disabled = true;
 
         try {
-            await signInWithEmailAndPassword(phoneNumberRef.current.value, otpRef.current.value);
+            await userConfirmation?.confirm(otpRef.current.value);
         } catch (error) {
-            console.log(error);
+            setErrorMsgContent((error as Error).message);
         }
         if (verifyCodeButtonRef.current)
             verifyCodeButtonRef.current.disabled = false;
@@ -73,7 +74,7 @@ export default function PhoneLogin() {
     useEffect(() => {
         let timeout: NodeJS.Timeout | null = null;
 
-        if (error?.message) {
+        if (errorMsgContent) {
             setErrorMsg(true);
             timeout = setTimeout(() => {
                 setErrorMsg(false);
@@ -85,14 +86,14 @@ export default function PhoneLogin() {
             if (timeout)
                 clearTimeout(timeout);
         }
-    }, [error])
+    }, [errorMsgContent])
 
     return (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  backdrop-filter backdrop-blur-md bg-opacity-40 border border-gray-200 rounded-lg shadow-2xl px-8 py-6 w-96 flex flex-col gap-y-4 items-center">
-            {errorMsg && error &&
+            {errorMsg && errorMsgContent &&
                 <p
                     className='absolute rounded-lg top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 bg-white text-red-600'>
-                    {error?.message}
+                    {errorMsgContent}
                 </p>
             }
             <h1>Login</h1>
@@ -116,9 +117,9 @@ export default function PhoneLogin() {
                     Send Code
                 </button>
 
-                <div className='password-data hidden' ref={codeDivRef}>
-                    <label htmlFor="password-input">OTP code</label>
-                    <input ref={otpRef} type="password" name='password-input' placeholder='Place OTP code'
+                <div className='otp-data hidden' ref={codeDivRef}>
+                    <label htmlFor="otp-input">OTP code</label>
+                    <input ref={otpRef} type="text" name='otp-input' placeholder='Place OTP code'
                         className='w-full p-3 rounded-lg outline-none text-black font-medium'
                     />
                 </div>
@@ -136,6 +137,7 @@ export default function PhoneLogin() {
 
             <EmailLogin />
             <Google />
+            <Github />
 
 
             <p className='font-light text-sm'>Don&#39;t have account?

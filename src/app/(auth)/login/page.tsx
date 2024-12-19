@@ -2,6 +2,7 @@
 
 import Github from '@/components/auth/github';
 import Google from '@/components/auth/google';
+import Phone from '@/components/auth/phone';
 import { auth } from '@/firebase';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -88,7 +89,7 @@ export default function Login() {
             </div>
 
 
-            {/* <Phone /> */}
+            <Phone />
             <Google />
             <Github />
 

@@ -7,6 +7,7 @@ import { auth } from '@/firebase';
 import { useEffect, useRef, useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import Github from '@/components/auth/github';
+import Phone from '@/components/auth/phone';
 
 export default function Register() {
 
@@ -92,7 +93,7 @@ export default function Register() {
             </div>
 
 
-            {/* <Phone /> */}
+            <Phone />
             <Google />
             <Github />
 
